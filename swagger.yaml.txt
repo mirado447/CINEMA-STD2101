@@ -1,0 +1,316 @@
+openapi: '3.0.2'
+info:
+  title: Salle De Cinema
+  description: Calendrier hebdomadaire projection
+  version: '1.0.0'
+servers:
+  - url: https://STD21081.com
+paths:
+  /Film:
+    get:
+      tags:
+        - "Film"
+      summary: get all Film
+      operationId: getFilm
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+        - name: page Size
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: list of Film
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Projection'
+        '400':
+          description: bad request
+    post:
+      tags:
+        - "Film"
+      summary: Add new Film
+      operationId: AddFilm
+      description: Add new Film
+      requestBody:
+        description: Film to be Added
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Film'
+        required: true
+      responses:
+        '200':
+         description: list of Film
+         content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CreateFilm'
+        '400':
+          description: bad request
+    put:
+      tags:
+        - Film
+      summary: put new film
+      operationId: put film
+      parameters:
+        - name: titre
+          in: query
+          schema:
+            type: string
+          required: true
+      requestBody:
+        description: Film to be Added
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Projection'
+        required: true
+      responses:
+        '200':
+         description: list of Film
+         content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Projection'
+        '400':
+          description: bad request
+    
+    patch:
+      tags:
+      - Film
+      summary: update a Film
+      operationId: update a Film
+      requestBody:
+        description: Film to be update
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Film'
+            examples:
+              changeTitre:
+                value:
+                  id: 1
+                  name: "Some Title"
+              changeSalle:
+                value:
+                  id: 1
+                  address: 'B'
+              ChangeHeure_diffusion:
+                value:
+                  id: 1
+                  heure: 21Heure
+      responses:
+        '200':
+         description: list of Film
+         content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Projection'
+        '400':
+          description: bad request
+  /Film/{id}:         
+    delete:
+      tags:
+        - Film
+      summary: delete some Film
+      operationId: delete film
+      description: deleted
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Film is deleted succefull
+  /Categorie:
+    get: 
+      tags:
+        - Categorie
+      summary: get all categorie
+      operationId: get categorie
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+        - name: page Size
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: list of Categorie
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Categorie'
+        '400':
+          description: bad request
+    post:
+      tags:
+        - "Categorie"
+      summary: Add new Categorie
+      operationId: Add Categorie
+      description: Add new Categorie
+      requestBody:
+        description: Categorie to be Added
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CatAdd'
+        required: true
+      responses:
+        '200':
+         description: list of Categorie
+         content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Categorie'
+        '400':
+          description: bad request
+          
+    put:
+      tags:
+        - Categorie
+      summary: put new Categorie
+      operationId: put Categorie
+      parameters:
+        - name: Categorie Name
+          in: query
+          schema:
+            type: string
+          required: true
+      requestBody:
+        description: Categorie to be Added
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Categorie'
+        required: true
+      responses:
+        '200':
+         description: list of Film
+         content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Categorie'
+        '400':
+          description: bad request
+
+  /Categorie/{id}:
+    delete:
+      tags:
+        - Categorie
+      summary: delete some Categorie
+      operationId: delete Categorie
+      description: deleted
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Categorie to be deleted succefully
+      
+components:
+  schemas:
+    CreateFilm:
+      type: object
+      properties:
+        id:
+          type: integer
+        Film:
+          type: array
+          items:
+              $ref: '#/components/schemas/Film'
+    Film:
+      type: object
+      properties:
+        titre:
+          type: string
+        dure:
+          type: string
+          format: hours
+          example: '1hours'
+        realisateur:
+          type: string
+        date_de_sortie:
+          type: string
+          format: date
+          example: '2022-10-23'
+        resume:
+          type: string
+        
+          
+    Salle:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "A"
+        capacite_accueil:
+          type: string
+          example: "80"
+    Categorie:
+      type: object
+      properties:
+        id:
+          type: "number"
+        name:
+          type: "string"
+    CatAdd:
+      type: "object"
+      properties:
+        name: 
+          type: "string"
+    Projection:
+      type: object
+      properties:
+        id:
+          type: number
+        film:
+          type: object
+          $ref: '#/components/schemas/Film'
+        salle:
+          type: object
+          $ref: '#/components/schemas/Salle'
+        heure_diffusion:
+          type: string
+          format: date_time
+          example: 12:00 
+
