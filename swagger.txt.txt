@@ -197,6 +197,39 @@ paths:
                   $ref: '#/components/schemas/Categorie'
         '400':
           description: bad request
+          
+    put:
+      tags:
+        - Categorie
+      summary: put new Categorie
+      operationId: put Categorie
+      parameters:
+        - name: Categorie Name
+          in: query
+          schema:
+            type: string
+          required: true
+      requestBody:
+        description: Categorie to be Added
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Categorie'
+        required: true
+      responses:
+        '200':
+         description: list of Film
+         content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Categorie'
+        '400':
+          description: bad request
+
   /Categorie/{id}:
     delete:
       tags:
@@ -280,5 +313,4 @@ components:
           type: string
           format: date_time
           example: 12:00 
-
 
