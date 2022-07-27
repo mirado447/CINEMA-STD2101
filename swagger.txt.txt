@@ -171,8 +171,48 @@ paths:
                   $ref: '#/components/schemas/Categorie'
         '400':
           description: bad request
-    
-
+    post:
+      tags:
+        - "Categorie"
+      summary: Add new Categorie
+      operationId: Add Categorie
+      description: Add new Categorie
+      requestBody:
+        description: Categorie to be Added
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CatAdd'
+        required: true
+      responses:
+        '200':
+         description: list of Categorie
+         content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Categorie'
+        '400':
+          description: bad request
+  /Categorie/{id}:
+    delete:
+      tags:
+        - Categorie
+      summary: delete some Categorie
+      operationId: delete Categorie
+      description: deleted
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Categorie to be deleted succefully
       
 components:
   schemas:
@@ -220,6 +260,11 @@ components:
           type: "number"
         name:
           type: "string"
+    CatAdd:
+      type: "object"
+      properties:
+        name: 
+          type: "string"
     Projection:
       type: object
       properties:
@@ -235,4 +280,5 @@ components:
           type: string
           format: date_time
           example: 12:00 
+
 
